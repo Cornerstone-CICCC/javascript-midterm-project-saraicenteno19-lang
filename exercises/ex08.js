@@ -10,8 +10,18 @@
 const _ = require('lodash');
 const products = require('../data/products.json');
 
-const lodashSolution = null;
-
+const lodashSolution = _.chain(products)
+.flatMap(product =>
+  product.tags.map(tag => ({
+    tag,
+    name: product.name
+  }))
+)
+.groupBy('tag')
+.mapValues(items =>
+  _.sortBy(items.map(i => i.name))
+)
+.value();
 console.log(lodashSolution);
 
 /*
