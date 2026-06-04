@@ -10,7 +10,16 @@
 const _ = require('lodash');
 const countries = require('../data/countries.json');
 
-const lodashSolution = null;
+const lodashSolution = _.chain(countries)
+   .map(country => ({
+    name: country.name,
+    region: country.region,
+    density: _.round(country.population / country.area, 1)
+   
+   }))
+   .filter(country => country.density > 300)
+   .orderBy('density', 'desc')
+   .value();
 
 console.log(lodashSolution);
 
