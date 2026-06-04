@@ -10,7 +10,17 @@
 const _ = require('lodash');
 const countries = require('../data/countries.json');
 
-const lodashSolution = null;
+const lodashSolution = _.chain(countries)
+.flatMap(country => country.languages)
+.countBy()
+.toPairs()
+.orderBy(pair => pair [1], 'desc')
+.take(10)
+.map(([language, countryCount]) => ({
+  language,
+  countryCount
+}))
+.value();
 
 console.log(lodashSolution);
 
