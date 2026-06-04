@@ -11,7 +11,35 @@
 const _ = require('lodash');
 const products = require('../data/products.json');
 
-const lodashSolution = null;
+const lodashSolution = _.chain(products)
+.groupBy('category')
+.map((items, category) => {
+  const bestProduct =_.maxBy(items, product => {
+    const sales = product.sales || {};
+      return (sales.q1 || 0) +
+    (sales.q2 || 0) +
+    (sales.q3 || 0) +
+    (sales.q4 || 0);
+    });
+ 
+    const sales = bestProduct.sales || {};
+    const totalUnits =
+      (sales.q1 || 0) +
+      (sales.q2 || 0) +
+      (sales.q3 || 0) +
+      (sales.q4 || 0);
+
+  return {
+    category,
+    productName: bestProduct.name,
+    totalUnits
+
+  };
+  
+})
+
+.orderBy('totalUnits', 'desc')
+.value();
 
 console.log(lodashSolution);
 
