@@ -12,7 +12,19 @@
 const _ = require('lodash');
 const movies = require('../data/movies.json');
 
-const lodashSolution = null;
+const lodashSolution = _.chain(movies)
+.groupBy(movie => `${Math.floor(movie.releaseYear / 10) * 10}s`)
+.map((group, decade) => {
+  const bestMovie = _.maxBy(group, 'rating');
+  return {
+    decade,
+    title: bestMovie.title,
+    releaseYear: bestMovie.releaseYear,
+    rating: bestMovie.rating
+  };
+})
+.sortBy('decade')
+.value();
 
 console.log(lodashSolution);
 
