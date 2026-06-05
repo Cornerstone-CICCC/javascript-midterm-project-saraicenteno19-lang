@@ -11,7 +11,15 @@
 const _ = require('lodash');
 const products = require('../data/products.json');
 
-const lodashSolution = null;
+const lodashSolution = _.chain(products)
+.filter({ category: 'Electronics'})
+.map(product => ({
+  name: product.name,
+  stock: product.stock,
+  inventoryValue: _.round(product.price * product.stock, 2)
+}))
+.orderBy(['inventoryValue'], ['desc'])
+.value();
 
 console.log(lodashSolution);
 
