@@ -5,15 +5,19 @@
 // Sort by campus ascending.
 //
 // Requirement:
-// Provide a Lodash solution.
-
 const _ = require('lodash');
 const students = require('../data/students.json');
 
-const lodashSolution = null;
+const lodashSolution = _.chain(students)
+  .groupBy('campus')
+  .map((group, campus) => ({
+    campus,
+    studentCount: group.length
+  }))
+  .orderBy(['campus'], ['asc'])
+  .value();
 
 console.log(lodashSolution);
-
 /*
 Expected output:
 [
