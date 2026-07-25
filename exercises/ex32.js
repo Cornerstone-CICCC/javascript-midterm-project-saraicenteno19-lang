@@ -9,7 +9,7 @@ const _ = require('lodash');
 const students = require('../data/students.json');
 
 const lodashSolution = _.chain(students)
-  .groupBy('campus')
+  .groupBy('campus') // Feedback: Filter to students with status === 'active' before grouping by campus.
   .map((group, campus) => ({
     campus,
     studentCount: group.length

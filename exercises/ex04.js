@@ -14,7 +14,7 @@ const lodashSolution = _.chain(countries)
 .flatMap(country => country.languages)
 .countBy()
 .toPairs()
-.orderBy(pair => pair [1], 'desc')
+.orderBy(pair => pair [1], 'desc') // Feedback: Add language as a secondary alphabetical sort for languages with the same count.
 .take(10)
 .map(([language, countryCount]) => ({
   language,
